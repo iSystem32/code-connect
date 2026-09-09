@@ -29,11 +29,11 @@ function formatPropertyType(type: FigmaRestApi.ComponentPropertyType): string {
 function optionsOf(property: AvailableProperty): string {
   if (property.variantOptions?.length) return property.variantOptions.join(' | ')
   if (property.type === 'BOOLEAN') return 'true | false'
-  return ''
+  return chalk.dim('—')
 }
 
 function defaultValueOf(property: AvailableProperty): string {
-  if (property.default === undefined) return ''
+  if (property.default === undefined || property.default === '') return chalk.dim('—')
   return typeof property.default === 'string' ? `"${property.default}"` : String(property.default)
 }
 
