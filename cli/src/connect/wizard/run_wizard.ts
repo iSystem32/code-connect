@@ -382,9 +382,9 @@ async function runManualLinking({
       {
         type: 'select',
         name: 'nodeId',
-        message: `Select a Figma component match you'd like to edit (Press ${chalk.green(
+        message: `Select a Figma component match to edit (Use arrow keys to navigate, press ${chalk.green(
           'esc',
-        )} when you're ready to continue on)`,
+        )} when finished)`,
         choices: getComponentChoicesForPrompt(
           unconnectedComponents,
           linkedNodeIdsToFilepathExports,
