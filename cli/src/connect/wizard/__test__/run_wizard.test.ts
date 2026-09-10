@@ -117,6 +117,17 @@ describe('getComponentChoicesForPrompt', () => {
       `Figma component: another connected component         ↔️ Code Definition: /foo/connectedComponent2.tsx`,
     ])
   })
+
+  it('includes proper description metadata for prompt interaction', () => {
+    const result = getComponentChoicesForPrompt(
+      [MOCK_COMPONENTS[0]],
+      {},
+      [],
+      '/',
+    )
+    expect(result[0]).toHaveProperty('description')
+    expect(_stripAnsi(result[0].description as string)).toBe('Edit Match')
+  })
 })
 
 describe('getUnconnectedComponentsAndConnectedComponentMappings', () => {
