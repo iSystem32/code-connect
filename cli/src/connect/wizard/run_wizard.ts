@@ -392,7 +392,7 @@ async function runManualLinking({
           dir,
         ),
         warn: 'This component already has a local Code Connect file.',
-        hint: ' ',
+        hint: '(Use arrow keys to navigate, enter to select, esc to skip)',
       },
       {
         onSubmit: clearQuestion,
