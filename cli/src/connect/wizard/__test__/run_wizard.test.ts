@@ -72,9 +72,9 @@ describe('getComponentChoicesForPrompt', () => {
     )
 
     expect(result.map((r) => _stripAnsi(r.title))).toEqual([
-      `Figma component: another component                   ↔️ Code Definition: ${path.join('some', 'component', 'path.tsx')}`,
-      `Figma component: a reeeeeeeally long component name  ↔️ Code Definition: -`,
-      `Figma component: different component                 ↔️ Code Definition: -`,
+      `Figma component: another component                   [Linked] ↔️ Code Definition: ${path.join('some', 'component', 'path.tsx')}`,
+      `Figma component: a reeeeeeeally long component name  [Unlinked] ↔️ Code Definition: -`,
+      `Figma component: different component                 [Unlinked] ↔️ Code Definition: -`,
     ])
   })
 
@@ -89,9 +89,9 @@ describe('getComponentChoicesForPrompt', () => {
     )
 
     expect(result.map((r) => _stripAnsi(r.title))).toEqual([
-      `Figma component: another component                   ↔️ Code Definition: ${path.join('component', 'path.tsx')}`,
-      `Figma component: a reeeeeeeally long component name  ↔️ Code Definition: -`,
-      `Figma component: different component                 ↔️ Code Definition: -`,
+      `Figma component: another component                   [Linked] ↔️ Code Definition: ${path.join('component', 'path.tsx')}`,
+      `Figma component: a reeeeeeeally long component name  [Unlinked] ↔️ Code Definition: -`,
+      `Figma component: different component                 [Unlinked] ↔️ Code Definition: -`,
     ])
   })
 
@@ -112,9 +112,9 @@ describe('getComponentChoicesForPrompt', () => {
       '/',
     )
     expect(result.map((r) => _stripAnsi(r.title))).toEqual([
-      `Figma component: a reeeeeeeally long component name  ↔️ Code Definition: -`,
-      `Figma component: some connected component            ↔️ Code Definition: /foo/connectedComponent1.tsx`,
-      `Figma component: another connected component         ↔️ Code Definition: /foo/connectedComponent2.tsx`,
+      `Figma component: a reeeeeeeally long component name  [Unlinked] ↔️ Code Definition: -`,
+      `Figma component: some connected component            [Linked] ↔️ Code Definition: /foo/connectedComponent1.tsx`,
+      `Figma component: another connected component         [Linked] ↔️ Code Definition: /foo/connectedComponent2.tsx`,
     ])
   })
 })
