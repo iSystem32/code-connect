@@ -267,10 +267,13 @@ function formatComponentTitle(componentName: string, filepathExport: string | nu
   const fileExport = filepathExport ? parseFilepathExport(filepathExport) : null
   const nameLabel = `${chalk.dim('Figma component:')} ${componentName.padEnd(pad, ' ')}`
 
+  const statusBadge = fileExport
+    ? chalk.green('[Linked]')
+    : chalk.dim('[Unlinked]')
   const filepathLabel = fileExport ? fileExport.filepath : '-'
   const exportNote = fileExport?.exportName ? ` (${fileExport.exportName})` : ''
 
-  const linkedLabel = `↔️ ${chalk.dim('Code Definition:')} ${filepathLabel}${exportNote}`
+  const linkedLabel = `${statusBadge} ↔️ ${chalk.dim('Code Definition:')} ${filepathLabel}${exportNote}`
   return `${nameLabel}  ${linkedLabel}`
 }
 
