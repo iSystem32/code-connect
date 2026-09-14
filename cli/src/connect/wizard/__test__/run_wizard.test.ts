@@ -116,6 +116,8 @@ describe('getComponentChoicesForPrompt', () => {
       `Figma component: some connected component            ↔️ Code Definition: /foo/connectedComponent1.tsx`,
       `Figma component: another connected component         ↔️ Code Definition: /foo/connectedComponent2.tsx`,
     ])
+    expect(result[1].description).toBe(require('chalk').dim('(Already connected)'))
+    expect(result[2].description).toBe(require('chalk').dim('(Already connected)'))
   })
 })
 
