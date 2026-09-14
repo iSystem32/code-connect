@@ -320,6 +320,7 @@ export function getComponentChoicesForPrompt(
         longestNameLength,
       ),
       disabled: true,
+      description: chalk.dim('(Already connected)'),
     })),
   ]
 }
