@@ -58,8 +58,10 @@ export function formatNetworkError(opts: {
 
   let suggestionText = suggestion
   if (!suggestionText && statusCode) {
-    if (statusCode === 401 || statusCode === 403) {
+    if (statusCode === 401) {
       suggestionText = defaultSuggestions['401']
+    } else if (statusCode === 403) {
+      suggestionText = defaultSuggestions['403']
     } else if (statusCode === 404) {
       suggestionText = defaultSuggestions['404']
     } else if (statusCode >= 500) {
