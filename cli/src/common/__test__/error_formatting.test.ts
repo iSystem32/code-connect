@@ -46,6 +46,19 @@ describe('Error Formatting', () => {
       expect(result).toContain('💡 Check your Figma access token is valid.')
     })
 
+    it('should format a 403 error', () => {
+      const result = formatNetworkError({
+        operation: 'publish code connect',
+        url: 'https://api.figma.com/v1/code_connect',
+        statusCode: 403,
+        error: new Error('Forbidden'),
+      })
+
+      expect(result).toContain('❌ Network error: publish code connect failed (HTTP 403)')
+      expect(result).toContain('URL: https://api.figma.com/v1/code_connect')
+      expect(result).toContain('💡 Check your Figma access token has the necessary permissions.')
+    })
+
     it('should format a 404 error', () => {
       const result = formatNetworkError({
         operation: 'upload to Figma',
