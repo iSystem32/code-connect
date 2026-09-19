@@ -63,14 +63,14 @@ export function getIncludesGlob({
 
 export async function createEnvFile({ dir, accessToken }: { dir: string; accessToken?: string }) {
   // Create .env file
-  const filePath = getDefaultConfigPath(dir)
-  fs.writeFileSync(getEnvPath(dir), `FIGMA_ACCESS_TOKEN="${accessToken}"`)
+  const filePath = getEnvPath(dir)
+  fs.writeFileSync(filePath, `FIGMA_ACCESS_TOKEN="${accessToken}"`)
   logger.info(success(`Created ${filePath}`))
 }
 
 export function addTokenToEnvFile({ dir, accessToken }: { dir: string; accessToken?: string }) {
-  const filePath = getDefaultConfigPath(dir)
-  fs.appendFileSync(getEnvPath(dir), `\nFIGMA_ACCESS_TOKEN="${accessToken}"`)
+  const filePath = getEnvPath(dir)
+  fs.appendFileSync(filePath, `\nFIGMA_ACCESS_TOKEN="${accessToken}"`)
   logger.info(success(`Appended access token to ${filePath}`))
 }
 
