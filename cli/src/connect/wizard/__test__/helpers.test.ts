@@ -7,11 +7,15 @@ import {
   getProjectInfo,
   getReactProjectInfo,
 } from '../../project'
+import fs from 'fs'
+import { logger } from '../../../common/logging'
 import {
   getIncludesGlob,
   getComponentOptionsMap,
   getFilepathExportsFromFiles,
   isValidFigmaUrl,
+  createEnvFile,
+  addTokenToEnvFile,
 } from '../helpers'
 
 describe('getIncludesGlob', () => {
@@ -122,6 +126,34 @@ describe('getFilepathExportsFromFiles', () => {
       'MultipleComponents.tsx~AnotherComponent1',
       'MultipleComponents.tsx~AnotherComponent2',
     ])
+  })
+})
+
+describe('env file helpers', () => {
+  beforeEach(() => {
+    jest.restoreAllMocks()
+  })
+
+  it('createEnvFile writes to .env and logs .env path', async () => {
+    const writeFileSyncSpy = jest.spyOn(fs, 'writeFileSync').mockImplementation(() => {})
+    const loggerInfoSpy = jest.spyOn(logger, 'info').mockImplementation(() => {})
+
+    await createEnvFile({ dir: '/test/dir', accessToken: 'test-token' })
+
+    const expectedEnvPath = path.resolve('/test/dir/.env')
+    expect(writeFileSyncSpy).toHaveBeenCalledWith(expectedEnvPath, 'FIGMA_ACCESS_TOKEN="test-token"')
+    expect(loggerInfoSpy).toHaveBeenCalledWith(expect.stringContaining(expectedEnvPath))
+  })
+
+  it('addTokenToEnvFile appends to .env and logs .env path', () => {
+    const appendFileSyncSpy = jest.spyOn(fs, 'appendFileSync').mockImplementation(() => {})
+    const loggerInfoSpy = jest.spyOn(logger, 'info').mockImplementation(() => {})
+
+    addTokenToEnvFile({ dir: '/test/dir', accessToken: 'test-token' })
+
+    const expectedEnvPath = path.resolve('/test/dir/.env')
+    expect(appendFileSyncSpy).toHaveBeenCalledWith(expectedEnvPath, '\nFIGMA_ACCESS_TOKEN="test-token"')
+    expect(loggerInfoSpy).toHaveBeenCalledWith(expect.stringContaining(expectedEnvPath))
   })
 })
 
