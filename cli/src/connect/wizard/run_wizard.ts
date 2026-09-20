@@ -178,7 +178,8 @@ export async function narrowDownComponentsPerPage(
     const { pagesToMap_temp } = await askQuestion({
       type: 'multiselect',
       name: 'pagesToMap_temp',
-      message: `Select the pages with the Figma components you'd like to map (Press ${chalk.green('space')} to select and ${chalk.green('enter')} to continue)`,
+      message: "Select the pages with the Figma components you'd like to map:",
+      hint: 'Use [space] to select/deselect, [a] to toggle all, [enter] to submit',
       instructions: false,
       choices: Object.entries(pages).map(([id, name]) => ({
         title: createTitle(name, id, longestPageName),
@@ -187,7 +188,7 @@ export async function narrowDownComponentsPerPage(
     })
 
     if (!pagesToMap_temp || pagesToMap_temp.length === 0) {
-      logger.warn('Select at least one page to continue.')
+      logger.warn('Please select at least one page to continue.')
       continue
     }
     pagesToMap = pagesToMap_temp
