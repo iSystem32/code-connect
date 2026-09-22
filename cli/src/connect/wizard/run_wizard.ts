@@ -245,6 +245,7 @@ async function askQuestionWithExitConfirmation<T extends string = string>(
       type: 'select',
       name: 'shouldExit',
       message: 'Are you sure you want to exit?',
+      hint: 'Use arrow keys to select',
       choices: [
         {
           title: 'Yes',
