@@ -1012,6 +1012,7 @@ export async function runWizard(cmd: BaseCommand) {
       message:
         "What is the URL of the Figma file containing design components you'd like to connect?",
       name: 'figmaFileUrl',
+      format: (val: string) => val.trim(),
       validate: (value: string) => isValidFigmaUrl(value) || 'Please enter a valid Figma file URL.',
     })
 

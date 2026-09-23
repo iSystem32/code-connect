@@ -131,6 +131,8 @@ describe('isValidFigmaUrl', () => {
       'https://www.figma.com/file/1234567890/My-File',
       'https://figma.com/file/1234567890/My-File',
       'https://figma.com/design/1234567890/My-File',
+      '  https://figma.com/design/1234567890/My-File  ',
+      '\nhttps://figma.com/design/1234567890/My-File\n',
     ]
     shouldPass.forEach((url) => {
       expect(isValidFigmaUrl(url)).toBe(true)

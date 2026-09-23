@@ -36,7 +36,7 @@ export function parseNodeIds(figmaNodeUrls: string[]): string[] {
 }
 
 export function parseFileKey(figmaNodeUrl: string) {
-  return figmaNodeUrl.match(/(?:file|design)\/([a-zA-Z0-9]+)/)?.[1]
+  return figmaNodeUrl.trim().match(/(?:file|design)\/([a-zA-Z0-9]+)/)?.[1]
 }
 
 /**

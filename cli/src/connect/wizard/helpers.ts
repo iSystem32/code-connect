@@ -199,14 +199,15 @@ export function getFilepathExportsFromFiles(projectInfo: ProjectInfo, cmd: BaseC
 
 export function isValidFigmaUrl(url: string) {
   try {
-    const { hostname } = new URL(url)
+    const trimmedUrl = url.trim()
+    const { hostname } = new URL(trimmedUrl)
     if (
       !hostname.includes('figma.com')
     ) {
       return false
     }
 
-    return !!parseFileKey(url)
+    return !!parseFileKey(trimmedUrl)
   } catch (e) {
     return false
   }
