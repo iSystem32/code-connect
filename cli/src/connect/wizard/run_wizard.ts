@@ -319,6 +319,7 @@ export function getComponentChoicesForPrompt(
         connectedComponent.filepathExport,
         longestNameLength,
       ),
+      description: 'Already connected',
       disabled: true,
     })),
   ]
