@@ -12,7 +12,17 @@ import {
   getComponentOptionsMap,
   getFilepathExportsFromFiles,
   isValidFigmaUrl,
+  createEnvFile,
+  addTokenToEnvFile,
 } from '../helpers'
+import fs from 'fs'
+import { logger } from '../../../common/logging'
+
+jest.mock('fs', () => ({
+  ...jest.requireActual('fs'),
+  writeFileSync: jest.fn(),
+  appendFileSync: jest.fn(),
+}))
 
 describe('getIncludesGlob', () => {
   it('returns default includes glob if no component directory', () => {
@@ -104,6 +114,36 @@ describe('getComponentOptionsMap', () => {
         },
       ],
     })
+  })
+})
+
+describe('env file helpers', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
+
+  it('createEnvFile writes to .env and logs correct filename', async () => {
+    const loggerSpy = jest.spyOn(logger, 'info').mockImplementation()
+    const testDir = '/mock/project'
+    await createEnvFile({ dir: testDir, accessToken: 'test-token' })
+
+    expect(fs.writeFileSync).toHaveBeenCalledWith(
+      path.resolve('/mock/project/.env'),
+      'FIGMA_ACCESS_TOKEN="test-token"',
+    )
+    expect(loggerSpy).toHaveBeenCalledWith(expect.stringContaining(path.resolve('/mock/project/.env')))
+  })
+
+  it('addTokenToEnvFile appends to .env and logs correct filename', () => {
+    const loggerSpy = jest.spyOn(logger, 'info').mockImplementation()
+    const testDir = '/mock/project'
+    addTokenToEnvFile({ dir: testDir, accessToken: 'test-token' })
+
+    expect(fs.appendFileSync).toHaveBeenCalledWith(
+      path.resolve('/mock/project/.env'),
+      '\nFIGMA_ACCESS_TOKEN="test-token"',
+    )
+    expect(loggerSpy).toHaveBeenCalledWith(expect.stringContaining(path.resolve('/mock/project/.env')))
   })
 })
 
