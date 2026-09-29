@@ -392,7 +392,7 @@ async function runManualLinking({
           dir,
         ),
         warn: 'This component already has a local Code Connect file.',
-        hint: ' ',
+        hint: '- Use arrow keys, Enter to edit match, Esc when done',
       },
       {
         onSubmit: clearQuestion,
@@ -427,6 +427,7 @@ async function runManualLinking({
         initial: prevSelectedFilepath
           ? pathChoices.findIndex(({ value }) => value === prevSelectedFilepath)
           : 0,
+        hint: '- Type to filter, Enter to select',
       },
       {
         onSubmit: clearQuestion,
@@ -461,6 +462,7 @@ async function runManualLinking({
                 prevSelectedComponent && prevSelectedFilepath === pathToComponent
                   ? fileExports.findIndex(({ title }) => title === prevSelectedComponent)
                   : 0,
+              hint: '- Type to filter, Enter to select',
             },
             {
               onSubmit: clearQuestion,
