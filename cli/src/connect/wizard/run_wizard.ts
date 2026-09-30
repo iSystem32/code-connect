@@ -936,7 +936,7 @@ export async function runWizard(cmd: BaseCommand) {
 
   if (!accessToken) {
     const { accessTokenEntered } = await askQuestionOrExit({
-      type: 'text',
+      type: 'password',
       message: `No access token detected. Visit https://help.figma.com/hc/en-us/articles/8085703771159-Manage-personal-access-tokens
       for instructions on how to do this, ensuring you have both the File Content and Code Connect Write scopes \n\n  Please enter your access token:`,
       name: 'accessTokenEntered',
