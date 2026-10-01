@@ -300,13 +300,14 @@ export function getComponentChoicesForPrompt(
     .sort(nameCompare)
 
   const formatComponentChoice = (c: FigmaRestApi.Component) => {
-    const filepathExport = linkedNodeIdsToFilepathExports[c.id]
+    const isLinked = !!linkedNodeIdsToFilepathExports[c.id]
+    const filepathExport = isLinked
       ? path.relative(dir, linkedNodeIdsToFilepathExports[c.id])
       : null
     return {
       title: formatComponentTitle(c.name, filepathExport, longestNameLength),
       value: c.id,
-      description: `${chalk.green('Edit Match')}`,
+      description: isLinked ? `${chalk.green('Edit Match')}` : `${chalk.yellow('Link Component')}`,
     }
   }
 
@@ -320,6 +321,7 @@ export function getComponentChoicesForPrompt(
         longestNameLength,
       ),
       disabled: true,
+      description: 'Already connected',
     })),
   ]
 }

@@ -117,6 +117,28 @@ describe('getComponentChoicesForPrompt', () => {
       `Figma component: another connected component         ↔️ Code Definition: /foo/connectedComponent2.tsx`,
     ])
   })
+
+  it('sets appropriate choice descriptions for linked, unlinked, and connected components', () => {
+    const result = getComponentChoicesForPrompt(
+      [MOCK_COMPONENTS[0], MOCK_COMPONENTS[1]],
+      {
+        '1:12': '/some/component/path.tsx',
+      },
+      [
+        {
+          componentName: 'some connected component',
+          filepathExport: '/foo/connectedComponent1.tsx',
+        },
+      ],
+      '/',
+    )
+
+    expect(result.map((r) => ({ value: r.value, description: r.description ? _stripAnsi(r.description) : undefined, disabled: r.disabled }))).toEqual([
+      { value: '1:12', description: 'Edit Match', disabled: undefined },
+      { value: '1:11', description: 'Link Component', disabled: undefined },
+      { value: undefined, description: 'Already connected', disabled: true },
+    ])
+  })
 })
 
 describe('getUnconnectedComponentsAndConnectedComponentMappings', () => {
